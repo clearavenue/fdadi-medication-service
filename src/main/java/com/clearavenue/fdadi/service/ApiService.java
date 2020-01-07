@@ -2,21 +2,21 @@ package com.clearavenue.fdadi.service;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.clearavenue.fdadi.model.LabelResult;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class ApiService {
 
-	@Autowired
-	RestTemplate restTemplate;
+	private final RestTemplate restTemplate;
 
 	public Optional<LabelResult> getLabel(final String medicationName) {
 		final String fixedMedicationName = fixString(medicationName);

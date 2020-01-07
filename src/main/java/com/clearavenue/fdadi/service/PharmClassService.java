@@ -3,17 +3,18 @@ package com.clearavenue.fdadi.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.clearavenue.fdadi.model.PharmClass;
 import com.clearavenue.fdadi.repository.PharmClassRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class PharmClassService {
 
-	@Autowired
-	PharmClassRepository pharmRepo;
+	private final PharmClassRepository pharmRepo;
 
 	public List<PharmClass> findAll() {
 		return pharmRepo.findAll();
