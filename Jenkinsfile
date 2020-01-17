@@ -71,7 +71,9 @@ spec:
             }    
           }
           post {
+            always {
               recordIssues(enabledForFailure: false, tool: checkStyle(pattern: 'target/checkstyle-result.xml'))
+            }
           }
         }                
       }
