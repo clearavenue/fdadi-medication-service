@@ -40,6 +40,7 @@ public class ApiService {
 			return Optional.ofNullable(result);
 		} catch (final RestClientException e) {
 			// Not found so do nothing
+			log.debug("LabelResult not found");
 		}
 
 		return Optional.empty();
