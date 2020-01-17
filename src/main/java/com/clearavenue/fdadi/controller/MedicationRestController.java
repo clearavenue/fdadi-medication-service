@@ -68,8 +68,7 @@ public class MedicationRestController {
 
 		final Optional<LabelResult> label = api.getLabelsByPharmClass(pharmClassName);
 		if (label.isPresent()) {
-			LabelResult result = LabelResult.builder().meta(Meta.builder().disclaimer("No Details Found for Selected PharmClass").build()).build();
-			result = label.get();
+			final LabelResult result = label.get();
 			result.results.forEach(l -> {
 				l.getOpenfda().getBrandName().stream().map(bn -> Medication.builder().medicationName(bn.toUpperCase(Locale.getDefault())).build()).forEach(medicationsList::add);
 				l.getOpenfda().getGenericName().stream().map(gn -> Medication.builder().medicationName(gn.toUpperCase(Locale.getDefault())).build()).forEach(medicationsList::add);
