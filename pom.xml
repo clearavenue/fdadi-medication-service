@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.clearavenue</groupId>
 	<artifactId>fdadi-medication-service</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 	<name>fdadi-medication-service</name>
 	<description>fdadi medication service</description>
 
@@ -103,6 +103,14 @@
 				<configuration>
 					<executable>true</executable>
 				</configuration>
+				<executions>
+					<execution>
+						<id>build-info</id>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
