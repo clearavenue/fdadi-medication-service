@@ -43,6 +43,7 @@ spec:
   ports:
     - port: 8083
       targetPort: 8083
+      name: http-fdadi-medication-service
   selector:
     app: fdadi
 ---
