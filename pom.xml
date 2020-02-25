@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.clearavenue</groupId>
 	<artifactId>fdadi-medication-service</artifactId>
-	<version>2.2</version>
+	<version>2.2.2</version>
 	<name>fdadi-medication-service</name>
 	<description>fdadi medication service</description>
 
@@ -106,6 +106,14 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<configuration>
+					<offline>true</offline>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
