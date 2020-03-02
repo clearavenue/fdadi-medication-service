@@ -83,8 +83,14 @@ spec:
               path: READINESS_URL
               port: SERVICE_PORT
           ports:
-            - name: http
+            - name: http-front
+              containerPort: 8081
+            - name: http-user
+              containerPort: 8082
+            - name: http-med
               containerPort: SERVICE_PORT
+            - name: mysql
+              containerPort: 3306
 ---
 kind: Service
 apiVersion: v1
