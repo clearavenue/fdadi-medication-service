@@ -113,7 +113,7 @@ spec:
   - "SERVICE_NAME.APP_NAME"
   gateways:
   - "ingressgateway.istio-system"
-  tcp:
+  http:
   - timeout: 60s
     route:
     - destination:
