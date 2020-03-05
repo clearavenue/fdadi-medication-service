@@ -51,18 +51,16 @@ metadata:
   name: SERVICE_NAME-BRANCH_NAME
   namespace: APP_NAME
   labels:
-    ns: APP_NAME
     app: SERVICE_NAME
     version: BRANCH_NAME
 spec:
   replicas: 1
   selector:
     matchLabels:
-      ns: APP_NAME
+      app: SERVICE_NAME
   template:
     metadata:
       labels:
-        ns: APP_NAME
         app: SERVICE_NAME
         version: BRANCH_NAME
       annotations:
@@ -103,7 +101,7 @@ spec:
       port: SERVICE_PORT
       targetPort: SERVICE_PORT
   selector:
-    ns: APP_NAME
+    app: SERVICE_NAME
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -114,7 +112,7 @@ spec:
   hosts:
   - "SERVICE_NAME.APP_NAME"
   gateways:
-  - "ingressgateway"
+  - "ingressgateway.istio-system"
   tcp:
   - timeout: 60s
     route:
