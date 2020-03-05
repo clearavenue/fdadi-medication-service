@@ -114,7 +114,7 @@ spec:
   hosts:
   - "SERVICE_NAME.APP_NAME"
   gateways:
-  - "main-gateway"
+  - "ingressgateway"
   tcp:
   - timeout: 60s
     route:
