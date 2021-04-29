@@ -1,19 +1,28 @@
 package com.clearavenue.fdadi.controller;
 
-import com.clearavenue.fdadi.model.*;
-import com.clearavenue.fdadi.service.ApiService;
-import com.clearavenue.fdadi.service.MedicationService;
-import com.clearavenue.fdadi.service.PharmClassService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.clearavenue.fdadi.model.AllMedicationsResult;
+import com.clearavenue.fdadi.model.AllPharmClassesResult;
+import com.clearavenue.fdadi.model.LabelResult;
+import com.clearavenue.fdadi.model.Medication;
+import com.clearavenue.fdadi.model.MedicationDetailsResult;
+import com.clearavenue.fdadi.model.MedicationResult;
+import com.clearavenue.fdadi.model.MedicationsResult;
+import com.clearavenue.fdadi.model.Meta;
+import com.clearavenue.fdadi.service.ApiService;
+import com.clearavenue.fdadi.service.MedicationService;
+import com.clearavenue.fdadi.service.PharmClassService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
@@ -63,6 +72,12 @@ public class MedicationRestController {
             });
         }
 
+        // add to medication if not already in db
+        medicationsList.stream().forEach(med -> {
+            if (!medService.exists(med.getMedicationName())) {
+                medService.save(med);
+            }
+        });
         return MedicationsResult.builder().medications(medicationsList.stream().distinct().collect(Collectors.toList())).build();
     }
 
