@@ -13,7 +13,7 @@ metadata:
     account: SERVICE_NAME
 ---
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: SERVICE_NAME
   namespace: APP_NAME
@@ -32,7 +32,7 @@ rules:
   verbs: ["get"]
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: SERVICE_NAME
@@ -84,9 +84,9 @@ spec:
             - name: http-front
               containerPort: 8081
             - name: http-user
-              containerPort: 8082
-            - name: http-med
               containerPort: SERVICE_PORT
+            - name: http-med
+              containerPort: 8083
             - name: mysql
               containerPort: 3306
 ---
@@ -97,8 +97,9 @@ metadata:
   namespace: APP_NAME
 spec:
   ports:
-    - name: http-med
+    - name: http-user
       port: SERVICE_PORT
+      protocol: TCP
       targetPort: SERVICE_PORT
   selector:
     app: SERVICE_NAME
@@ -110,10 +111,25 @@ metadata:
   namespace: default
 spec:
   hosts:
-  - "SERVICE_NAME.APP_NAME"
+  - "SERVICE_NAME.APP_NAME.svc.cluster.local"
   gateways:
   - "ingressgateway.istio-system"
   http:
+  - match:
+    - uri:
+        prefix: "/BRANCH_NAME/"
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: SERVICE_NAME.APP_NAME.svc.cluster.local
+        subset: BRANCH_NAME
+        port:
+          number: SERVICE_PORT
+    retries:
+      attempts: 5
+      perTryTimeout: 2s
+      retryOn: connect-failure,internal,500,503,5xx,reset
   - timeout: 60s
     route:
     - destination:
