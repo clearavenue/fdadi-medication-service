@@ -2,15 +2,15 @@ spring:
   application:
     name: fdadi-medication-service
   datasource:
-    url: jdbc:mysql://fdadi-db:3306/fdadi?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://mysql.default.svc.cluster.local:3306/fdadi
     username: fdadi
     password: cL3ar#12
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    database: MYSQL
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
-
-server:
-  port: 8083
 
 logging:
   level:
@@ -25,13 +25,3 @@ management:
     web:
       exposure:
         include: '*'
-
----
-
-spring:
-  profiles: local
-
-  datasource:
-    url: jdbc:h2:file:/mnt/c/temp/fdadi;AUTO_SERVER=TRUE
-    username: fdadi
-    password: cL3ar#12
